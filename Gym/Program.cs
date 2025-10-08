@@ -1,3 +1,6 @@
+using GymManagementSystemDAL.Data.DbContexts;
+using Microsoft.EntityFrameworkCore;
+
 namespace Gym
 {
     public class Program
@@ -8,6 +11,10 @@ namespace Gym
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<GymDbContext>(options => 
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
 
             var app = builder.Build();
 
