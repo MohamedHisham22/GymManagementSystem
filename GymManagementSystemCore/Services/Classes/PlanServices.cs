@@ -24,7 +24,7 @@ namespace GymManagementSystemCore.Services.Classes
             var planRepo = _unitOfWork.GetRepo<Plan>();
             var plans = planRepo.GetAll();
 
-            if (plans is null || plans.Any()) return [];
+            if (plans is null || !plans.Any()) return [];
 
             return plans.Select(P => new PlanViewModel()
             {
