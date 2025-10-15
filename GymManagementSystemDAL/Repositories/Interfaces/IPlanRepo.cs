@@ -1,22 +1,22 @@
-﻿using GymManagementSystemDAL.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//using GymManagementSystemDAL.Models;
+//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
 
-namespace GymManagementSystemDAL.Repositories.Interfaces
-{
-    internal interface IPlanRepo
-    {
-        IEnumerable<Plan>? GetAllPlans();
+//namespace GymManagementSystemDAL.Repositories.Interfaces
+//{
+//    public interface IPlanRepo
+//    {
+//        IEnumerable<Plan>? GetAllPlans();
 
-        Plan? GetPlanById(int id);
+//        Plan? GetPlanById(int id);
 
-        int AddPlan(Plan plan);
-
-        int UpdatePlan(Plan plan);
-
-        int DeletePlan(Plan plan);
-    }
-}
+//        void AddPlan(Plan plan);
+        
+//        void UpdatePlan(Plan plan);
+        
+//        void DeletePlan(Plan plan);
+//    }
+//}

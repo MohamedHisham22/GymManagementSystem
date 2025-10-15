@@ -1,4 +1,6 @@
 using GymManagementSystemDAL.Data.DbContexts;
+using GymManagementSystemDAL.Repositories.Classes;
+using GymManagementSystemDAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gym
@@ -15,6 +17,10 @@ namespace Gym
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+            builder.Services.AddScoped<IHealthRecordRepo, HealthRecordRepo>();
+            //builder.Services.AddScoped<ISessionRepo, SessionRepo>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();    
+
 
             var app = builder.Build();
 
