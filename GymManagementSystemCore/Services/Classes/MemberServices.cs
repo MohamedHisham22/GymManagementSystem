@@ -27,24 +27,6 @@ namespace GymManagementSystemCore.Services.Classes
         {
             var members = _unitOfWork.GetRepo<Member>().GetAll();
             if (members == null || !members.Any()) return [];
-            #region Manual Mapping way 1
-            //var memberViews = new List<MemberViewModel>();
-            //foreach (var member in members)
-            //{
-            //    var memberView = new MemberViewModel
-            //    {
-            //        Id = member.Id,
-            //        Photo = member.Photo,
-            //        Name = member.Name,
-            //        Email = member.Email,
-            //        Gender = member.Gender.ToString(),
-            //        Phone = member.Phone,
-            //    };
-            //    memberViews.Add(memberView);
-            //}
-            #endregion
-
-            #region Manual Mappin Way 2
             var memberViews = members.Select(M => new MemberViewModel
             {
                 Id = M.Id,
@@ -55,8 +37,6 @@ namespace GymManagementSystemCore.Services.Classes
                 Phone = M.Phone,
             });
             return memberViews;
-            #endregion
-
         }
 
         public bool CreateMember(CreateMemberViewModel createdMemberView)
@@ -204,9 +184,6 @@ namespace GymManagementSystemCore.Services.Classes
                 if (HasActiveSessions) return false;
                 #endregion
 
-                //RelationShips With Member Must Be Cascade On Delete so the database deletes its related data automatically
-                //If its not cascade then related data must be deleted first here manually before deleting the member or exception will be thrown
-               
                 #region Delete Related MemberShips With Member (not required here in that case because member has cascading relationships)
                 var memberShips = memberShipRepo.GetAll(MS => MS.MemberId == id);
                 if (memberShips.Any()) 

@@ -56,8 +56,9 @@ namespace GymManagementSystemCore.Services.Classes
         public PlanToUpdateViewModel? PlanToUpdate(int id)
         {
             var plan = _unitOfWork.GetRepo<Plan>().GetById(id);
+            if(plan is null) return null;
             var IsmemberShipsActive = _unitOfWork.GetRepo<MemberPlan>().GetAll(MP => MP.PlanId == plan.Id && MP.Status == "Active").Any();
-            if (plan is null || plan.IsActive || IsmemberShipsActive) return null;
+            if (plan.IsActive || IsmemberShipsActive) return null;
             var planView = new PlanToUpdateViewModel()
             {
                 Name = plan.Name,

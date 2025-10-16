@@ -17,19 +17,19 @@ namespace GymManagementSystemCore.ViewModels.MemberViewModels
         public string Name { get; set; } = null!;
 
         [Required(ErrorMessage = "Email Is Required")]
-        [EmailAddress(ErrorMessage = "Invalid email Format")] // Validation
-        [DataType(DataType.EmailAddress)] // UI HINT
+        [EmailAddress(ErrorMessage = "Invalid email Format")] 
+        [DataType(DataType.EmailAddress)] 
         [StringLength(100, MinimumLength = 5, ErrorMessage = "Email Must Be Between 5 and 100 Char")]
         public string Email { get; set; } = null!;
 
         [Required(ErrorMessage = "Phone Is Required")]
-        [Phone(ErrorMessage = "Invalid Phone Format")] // Validation
+        [Phone(ErrorMessage = "Invalid Phone Format")] 
         [RegularExpression(@"^(010|011|012|015)\d{8}$", ErrorMessage = "Phone Number Must Be Valid Egyptian PhoneNumber")]
-        [DataType(DataType.PhoneNumber)] // UI HINT
+        [DataType(DataType.PhoneNumber)] 
         public string Phone { get; set; } = null!;
         
         [Required(ErrorMessage = "Date Of Birth Is Required")]
-        [DataType(DataType.Date)] // UI HINT
+        [DataType(DataType.Date)] 
         public DateOnly DateOfBirth { get; set; }
 
         [Required(ErrorMessage = "Gender Is Required")]
@@ -53,21 +53,6 @@ namespace GymManagementSystemCore.ViewModels.MemberViewModels
         public MemberHealthRecordViewModel HealthRecord { get; set; } = null!;
         #endregion
 
-        #region Health Record Properties Way02 (if its properties are only needed here)
-        //[Required(ErrorMessage = "Height Is Required")]
-        //[Range(0.1, 300, ErrorMessage = "Height Must Be Greater Than 0 And Less Than 300")]
-        //public decimal Height { get; set; }
-
-        //[Required(ErrorMessage = "Weight Is Required")]
-        //[Range(0.1, 500, ErrorMessage = "Weight Must Be Greater Than 0 And Less Than 500")]
-        //public decimal Weight { get; set; }
-
-        //[Required(ErrorMessage = "BloodType Is Required")]
-        //public BloodType BloodType { get; set; }
-
-        //public string? Note { get; set; }
-
-        #endregion
     }
 
 }
