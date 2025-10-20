@@ -15,15 +15,15 @@ namespace GymManagementSystemDAL.Repositories.Classes
         private readonly Dictionary<Type, object> _repos = new();
         private readonly GymDbContext _dbContext;
 
-        public IHealthRecordRepo healthRecordRepo { get; } 
-        //public ISessionRepo sessionRepo{ get; }; 
+        public IHealthRecordRepo healthRecordRepo { get; }
+        public ISessionRepo sessionRepo { get; }
 
 
-        public UnitOfWork(GymDbContext dbContext , IHealthRecordRepo HealthRecordRepo/* ,ISessionRepo SessionRepo */) 
+        public UnitOfWork(GymDbContext dbContext , IHealthRecordRepo HealthRecordRepo , ISessionRepo SessionRepo )
         {
             _dbContext = dbContext; 
-            healthRecordRepo = HealthRecordRepo; 
-            //sessionRepo = SessionRepo 
+            healthRecordRepo = HealthRecordRepo;
+            sessionRepo = SessionRepo;
         }
 
         public IGenericRepo<T> GetRepo<T>() where T : Base, new()
@@ -33,7 +33,7 @@ namespace GymManagementSystemDAL.Repositories.Classes
             {
                 return (IGenericRepo<T>)repo;
             }
-            var newRepo = new GenericRepo<T>(_dbContext); //manual object creation (no need for DI)
+            var newRepo = new GenericRepo<T>(_dbContext); 
             _repos[entityType] = newRepo;
             return newRepo;
         }

@@ -14,9 +14,9 @@ namespace GymManagementSystemDAL.Models
 
         public int Capacity { get; set; }
 
-        public DateOnly StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
-        public DateOnly EndDate { get; set;  }
+        public DateTime EndDate { get; set;  }
 
         public int TrainerID { get; set; } //Fk to trainer
 

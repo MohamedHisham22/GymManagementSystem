@@ -61,7 +61,7 @@ namespace GymManagementSystemCore.Services.Classes
                 if (trainer == null) return false;
 
                 #region Check Trainer Has Active Sessions
-                var HasActiveSessions = _unitOfWork.GetRepo<Session>().GetAll(S => S.TrainerID == id && S.StartDate > DateOnly.FromDateTime(DateTime.Now)).Any();
+                var HasActiveSessions = _unitOfWork.GetRepo<Session>().GetAll(S => S.TrainerID == id && S.StartDate > DateTime.Now).Any();
                 if (HasActiveSessions) return false;
                 #endregion
 
@@ -81,6 +81,7 @@ namespace GymManagementSystemCore.Services.Classes
 
             return trainers.Select(T => new TrainerViewModel() 
             {
+                Id = T.Id,
                 Name = T.Name,
                 Email = T.Email,
                 Phone = T.Phone,

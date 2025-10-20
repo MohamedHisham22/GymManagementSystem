@@ -1,3 +1,5 @@
+using GymManagementSystemCore.MappingProfiles;
+using GymManagementSystemDAL.Data.DataSeed;
 using GymManagementSystemDAL.Data.DbContexts;
 using GymManagementSystemDAL.Repositories.Classes;
 using GymManagementSystemDAL.Repositories.Interfaces;
@@ -17,12 +19,27 @@ namespace Gym
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+            builder.Services.AddAutoMapper(X => 
+            { 
+                X.AddProfile<SessionMappingProfile>(); 
+            });
             builder.Services.AddScoped<IHealthRecordRepo, HealthRecordRepo>();
-            //builder.Services.AddScoped<ISessionRepo, SessionRepo>();
-            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();    
+            builder.Services.AddScoped<ISessionRepo, SessionRepo>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
             var app = builder.Build();
+
+
+            //Data Seeding
+            using var dbContext = app.Services.CreateScope().ServiceProvider.GetRequiredService<GymDbContext>();
+            var pendingMigrations = dbContext.Database.GetPendingMigrations();
+            if(pendingMigrations?.Any() ?? false)  //checking if database is migrated if not then migrate
+            {
+                dbContext.Database.Migrate();
+            }
+            GymDbContextDataSeeder.SeedData(dbContext);
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

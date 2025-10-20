@@ -180,7 +180,7 @@ namespace GymManagementSystemCore.Services.Classes
                 if (member == null) return false;
 
                 #region Check If Member Has Active Membership Dont Delete
-                var HasActiveSessions = _unitOfWork.GetRepo<MemberSession>().GetAll(MS => MS.MemberId == id && MS.session.StartDate > DateOnly.FromDateTime(DateTime.Now)).Any();
+                var HasActiveSessions = _unitOfWork.GetRepo<MemberSession>().GetAll(MS => MS.MemberId == id && MS.session.StartDate > DateTime.Now).Any();
                 if (HasActiveSessions) return false;
                 #endregion
 

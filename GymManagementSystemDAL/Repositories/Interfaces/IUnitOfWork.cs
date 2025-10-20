@@ -11,7 +11,7 @@ namespace GymManagementSystemDAL.Repositories.Interfaces
 {
     public interface IUnitOfWork
     {
-        //public ISessionRepo sessionRepo { get; }
+        public ISessionRepo sessionRepo { get; }
         public IHealthRecordRepo healthRecordRepo { get; } 
         public IGenericRepo<T> GetRepo<T>() where T : Base, new();
 
