@@ -77,9 +77,8 @@ namespace GymManagementSystemCore.Services.Classes
                 var session = _unitOfWork.sessionRepo.GetById(sessionId);
                 if (session == null) return false;
                 if (!isSessionAvailableToUpdateOrDelete(session) || !IsTrainerExists(sessionView.TrainerID) || !IsDateTimeValid(sessionView.StartDate, sessionView.EndDate)) return false;
-                var updatedSession = _mapper.Map<UpdateSessionViewModel, Session>(sessionView);
-                updatedSession.UpdatedAt = DateTime.Now;
-                _unitOfWork.sessionRepo.Update(updatedSession);
+                _mapper.Map(sessionView , session);
+                _unitOfWork.sessionRepo.Update(session);
                 return _unitOfWork.saveChanges() > 0;
             }
             catch 

@@ -1,3 +1,4 @@
+using AutoMapper;
 using GymManagementSystemCore.MappingProfiles;
 using GymManagementSystemDAL.Data.DataSeed;
 using GymManagementSystemDAL.Data.DbContexts;
@@ -21,8 +22,23 @@ namespace Gym
             });
             builder.Services.AddAutoMapper(X => 
             { 
-                X.AddProfile<SessionMappingProfile>(); 
+                X.AddProfile<SessionMappingProfile>(); //generic way
+                X.AddProfile(new MemberMappingProfile()); //manually adding object way
+                X.AddProfile(new PlanMappingProfile());
+                X.AddProfile<TrainerMappingProfile>();
             });
+            //Or
+            //builder.Services.AddAutoMapper(X =>
+            //{
+            //    X.AddProfiles(new List<Profile>
+            //    {
+            //        new SessionMappingProfile(),
+            //        new MemberMappingProfile(),
+            //        new PlanMappingProfile(),
+            //        new TrainerMappingProfile(),
+            //    });
+            //});
+
             builder.Services.AddScoped<IHealthRecordRepo, HealthRecordRepo>();
             builder.Services.AddScoped<ISessionRepo, SessionRepo>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();

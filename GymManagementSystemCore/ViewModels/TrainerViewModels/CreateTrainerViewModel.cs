@@ -10,45 +10,45 @@ namespace GymManagementSystemCore.ViewModels.TrainerViewModels
 {
     internal class CreateTrainerViewModel
     {
-        [Required(ErrorMessage = "Name Is Required")]
-        [StringLength(50, MinimumLength = 2, ErrorMessage = "Name Must Be Between 2 And 50 Char")]
-        [RegularExpression(@"^[\w\s]+$", ErrorMessage = "Name Can Contain Only Letters And Spaces")]
-        public string Name { get; set; } = null!;
+       [Required(ErrorMessage = "Name Is Required")]
+		[RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Name can only contain letters and spaces")]
+		public string Name { get; set; } = null!;
 
-        [Required(ErrorMessage = "Email Is Required")]
-        [EmailAddress(ErrorMessage = "Invalid email Format")] 
-        [DataType(DataType.EmailAddress)] 
-        [StringLength(100, MinimumLength = 5, ErrorMessage = "Email Must Be Between 5 and 100 Char")]
-        public string Email { get; set; } = null!;
+		[Required(ErrorMessage = "Email Is Required")]
+		[EmailAddress(ErrorMessage = "Invalid email format")]
 
-        [Required(ErrorMessage = "Phone Is Required")]
-        [Phone(ErrorMessage = "Invalid Phone Format")] 
-        [RegularExpression(@"^(010|011|012|015)\d{8}$", ErrorMessage = "Phone Number Must Be Valid Egyptian PhoneNumber")]
-        [DataType(DataType.PhoneNumber)] 
-        public string Phone { get; set; } = null!;
+		public string Email { get; set; } = null!;
 
-        [Required(ErrorMessage = "Date Of Birth Is Required")]
-        [DataType(DataType.Date)] 
-        public DateOnly DateOfBirth { get; set; }
+		[Required(ErrorMessage = "Phone Number Is Required")]
+		[Phone(ErrorMessage = "Invalid phone number")]
+		[RegularExpression(@"^(010|011|012|015)\d{8}$", ErrorMessage = "Phone number must be a valid Egyptian mobile number")]
 
-        [Required(ErrorMessage = "Gender Is Required")]
-        public Gender Gender { get; set; }
+		public string Phone { get; set; } = null!;
 
-        [Required(ErrorMessage = "Building Number Is Required")]
-        [Range(1, 9000, ErrorMessage = "Building Number Must Be Between 1 and 9000")]
-        public int BuildingNumber { get; set; }
+		[Required(ErrorMessage = "Date of Birth is required")]
+		[DataType(DataType.Date)]
+		public DateOnly DateOfBirth { get; set; }
 
-        [Required(ErrorMessage = "Street Is Required")]
-        [StringLength(30, MinimumLength = 2, ErrorMessage = "Street Must Be Between 2 and 30 Chars")]
-        public string Street { get; set; } = null!;
+		[Required(ErrorMessage = "Gender is required")]
+		public Gender Gender { get; set; }
 
-        [Required(ErrorMessage = "City Is Required")]
-        [StringLength(30, MinimumLength = 2, ErrorMessage = "City Must Be Between 2 and 30 Chars")]
-        [RegularExpression(@"^[\w\s]+$", ErrorMessage = "City Can Contain Only Letters And Spaces")]
-        public string City { get; set; } = null!;
-        
-        [Required(ErrorMessage = "Speciality Number Is Required")]
-        public Specialities Specialization { get; set; }
+		[Required(ErrorMessage = "Building Number Is Required")]
+		[Range(1, int.MaxValue, ErrorMessage = "Building Number must be greater than 0")]
+		public int BuildingNumber { get; set; }
+
+		[Required(ErrorMessage = "City Is Required")]
+		[StringLength(100, MinimumLength = 2, ErrorMessage = "City must be between 2 and 100 characters")]
+		[RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "City can only contain letters and spaces")]
+		public string City { get; set; } = null!;
+
+		[Required(ErrorMessage = "Street Is Required")]
+		[StringLength(150, MinimumLength = 2, ErrorMessage = "Street must be between 2 and 150 characters")]
+		[RegularExpression(@"^[a-zA-Z0-9\s]+$", ErrorMessage = "Street can only contain letters, numbers, and spaces")]
+		public string Street { get; set; } = null!;
+
+		[Required(ErrorMessage = "Specialty is Required")]
+		[EnumDataType(typeof(Specialities))]
+		public Specialities Speciality { get; set; }
 
     }
 }

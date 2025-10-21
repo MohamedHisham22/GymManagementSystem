@@ -22,9 +22,5 @@ namespace GymManagementSystemDAL.Models
 
         public int Id {  get; set; } // Shared Pk With Member
         #endregion
-
-        #region Nav Properties (Relations)
-        //public Member Member { get; set; } = null!; not needed (will be configured with fluent api)
-        #endregion
     }
 }

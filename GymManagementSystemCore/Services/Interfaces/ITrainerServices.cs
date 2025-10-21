@@ -9,17 +9,12 @@ namespace GymManagementSystemCore.Services.Interfaces
 {
     internal interface ITrainerServices
     {
-        public IEnumerable<TrainerViewModel> GetAllTrainers();
-
-        public bool CreateTrainer(CreateTrainerViewModel trainerView);
-
-        public TrainerDetailsViewModel? GetTrainerDetailsById(int id);
-
-        public TrainerToUpdateViewModel? TrainerToUpdate(int id);
-
-        public bool UpdateTrainer(int id, TrainerToUpdateViewModel trainerView);
-
-        public bool DeleteTrainer(int id);
+        IEnumerable<TrainerViewModel> GetAllTrainers();
+        bool CreateTrainer(CreateTrainerViewModel createdTrainer);
+        TrainerViewModel? GetTrainerDetails(int trainerId);
+        TrainerToUpdateViewModel? GetTrainerToUpdate(int trainerId);
+        bool UpdateTrainerDetails(TrainerToUpdateViewModel updatedTrainer, int trainerId);
+        bool RemoveTrainer(int trainerId);
 
 
     }

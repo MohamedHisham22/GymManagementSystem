@@ -1,4 +1,5 @@
-﻿using GymManagementSystemCore.Services.Interfaces;
+﻿using AutoMapper;
+using GymManagementSystemCore.Services.Interfaces;
 using GymManagementSystemCore.ViewModels.PlanViewModels;
 using GymManagementSystemDAL.Models;
 using GymManagementSystemDAL.Repositories.Interfaces;
@@ -13,10 +14,12 @@ namespace GymManagementSystemCore.Services.Classes
     internal class PlanServices : IPlanServices
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public PlanServices(IUnitOfWork unitOfWork)
+        public PlanServices(IUnitOfWork unitOfWork , IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public IEnumerable<PlanViewModel> GetAllPlans()
@@ -26,15 +29,7 @@ namespace GymManagementSystemCore.Services.Classes
 
             if (plans is null || !plans.Any()) return [];
 
-            return plans.Select(P => new PlanViewModel()
-            {
-                Id = P.Id,
-                Name = P.Name,
-                Description = P.Description,
-                DurationDays = P.DurationDays,
-                Price = P.Price,
-                isActive = P.IsActive,
-            });
+            return _mapper.Map<IEnumerable<Plan>, IEnumerable<PlanViewModel>>(plans);
 
         }
 
@@ -42,15 +37,7 @@ namespace GymManagementSystemCore.Services.Classes
         {
             var plan = _unitOfWork.GetRepo<Plan>().GetById(id);
             if (plan is null) return null;
-            return new PlanViewModel()
-            {
-                Id = plan.Id,
-                Name = plan.Name,
-                Description = plan.Description,
-                DurationDays = plan.DurationDays,
-                Price = plan.Price,
-                isActive = plan.IsActive,
-            };
+            return _mapper.Map<Plan , PlanViewModel>(plan);
         }
 
         public PlanToUpdateViewModel? PlanToUpdate(int id)
@@ -59,14 +46,7 @@ namespace GymManagementSystemCore.Services.Classes
             if(plan is null) return null;
             var IsmemberShipsActive = _unitOfWork.GetRepo<MemberPlan>().GetAll(MP => MP.PlanId == plan.Id && MP.Status == "Active").Any();
             if (plan.IsActive || IsmemberShipsActive) return null;
-            var planView = new PlanToUpdateViewModel()
-            {
-                Name = plan.Name,
-                Description = plan.Description,
-                DurationDays = plan.DurationDays,
-                Price = plan.Price,
-            };
-            return planView;
+            return _mapper.Map<Plan, PlanToUpdateViewModel>(plan);
         }
 
         public bool UpdatePlanDetails(int id, PlanToUpdateViewModel planView)
@@ -81,10 +61,8 @@ namespace GymManagementSystemCore.Services.Classes
                 if (IsmemberShipsActive) return false;
                 #endregion
 
-                (plan.Name, plan.Description, plan.DurationDays, plan.Price , plan.UpdatedAt)
-                =
-                (planView.Name, planView.Description, planView.DurationDays, planView.Price , DateTime.Now);
-
+                _mapper.Map(planView, plan);
+                _unitOfWork.GetRepo<Plan>().Update(plan);
                 return _unitOfWork.saveChanges() > 0;
             }
             catch 
