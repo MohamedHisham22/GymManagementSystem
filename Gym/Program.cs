@@ -1,5 +1,7 @@
 using AutoMapper;
 using GymManagementSystemCore.MappingProfiles;
+using GymManagementSystemCore.Services.Classes;
+using GymManagementSystemCore.Services.Interfaces;
 using GymManagementSystemDAL.Data.DataSeed;
 using GymManagementSystemDAL.Data.DbContexts;
 using GymManagementSystemDAL.Repositories.Classes;
@@ -24,6 +26,7 @@ namespace Gym
             builder.Services.AddScoped<IHealthRecordRepo, HealthRecordRepo>();
             builder.Services.AddScoped<ISessionRepo, SessionRepo>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IHomeServices , HomeServices>();
 
 
             var app = builder.Build();
