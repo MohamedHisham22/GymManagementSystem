@@ -21,7 +21,6 @@ namespace GymManagementSystemCore.MappingProfiles
             CreateMap<CreateSessionViewModel , Session>();
 
             CreateMap<Session, UpdateSessionViewModel>();
-            //.ReverseMap(); //Valid Both Ways
 
             CreateMap<UpdateSessionViewModel, Session>()
                 .AfterMap((src, dest) => 

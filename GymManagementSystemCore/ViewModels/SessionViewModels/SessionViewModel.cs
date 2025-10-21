@@ -17,7 +17,7 @@ namespace GymManagementSystemCore.ViewModels.SessionViewModels
         public int Capacity { get; set; }
         public int AvailableSlots { get; set; }
 
-        //Computed Properties Will Be Used In The View (Get Only)
+        //Computed Properties 
         public string DateDisplay => $"{StartDate: MMM dd , yyyy}"; 
         public string TimeDisplay => $"{StartDate: hh:mm tt} - {EndDate: hh:mm tt}"; 
         public TimeSpan DurationDisplay => EndDate - StartDate;

@@ -10,6 +10,7 @@ namespace GymManagementSystemCore.ViewModels.TrainerViewModels
 {
     internal class TrainerToUpdateViewModel
     {
+        //View Only Cant Be Changed
         public string Name { get; set; } = null!;
 
         [Required(ErrorMessage = "Email Is Required")]

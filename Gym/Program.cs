@@ -20,25 +20,7 @@ namespace Gym
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
-            builder.Services.AddAutoMapper(X => 
-            { 
-                X.AddProfile<SessionMappingProfile>(); //generic way
-                X.AddProfile(new MemberMappingProfile()); //manually adding object way
-                X.AddProfile(new PlanMappingProfile());
-                X.AddProfile<TrainerMappingProfile>();
-            });
-            //Or
-            //builder.Services.AddAutoMapper(X =>
-            //{
-            //    X.AddProfiles(new List<Profile>
-            //    {
-            //        new SessionMappingProfile(),
-            //        new MemberMappingProfile(),
-            //        new PlanMappingProfile(),
-            //        new TrainerMappingProfile(),
-            //    });
-            //});
-
+            builder.Services.AddAutoMapper(X => X.AddMaps(typeof(MemberMappingProfile).Assembly));
             builder.Services.AddScoped<IHealthRecordRepo, HealthRecordRepo>();
             builder.Services.AddScoped<ISessionRepo, SessionRepo>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -50,7 +32,7 @@ namespace Gym
             //Data Seeding
             using var dbContext = app.Services.CreateScope().ServiceProvider.GetRequiredService<GymDbContext>();
             var pendingMigrations = dbContext.Database.GetPendingMigrations();
-            if(pendingMigrations?.Any() ?? false)  //checking if database is migrated if not then migrate
+            if(pendingMigrations?.Any() ?? false)  
             {
                 dbContext.Database.Migrate();
             }
