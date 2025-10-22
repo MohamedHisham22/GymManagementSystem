@@ -24,6 +24,11 @@ namespace GymManagementSystemDAL.Data.ModelConfigs.BaseClassConfigs
             builder.Property(GU => GU.Phone)
                    .HasColumnType("varchar")
                    .HasMaxLength(11);
+            
+            builder.Property(GU => GU.Gender)
+                   .HasConversion(typeof(string))
+                   .HasColumnType("varchar")
+                   .HasMaxLength(10);
 
             builder.ToTable(GU => 
             { 

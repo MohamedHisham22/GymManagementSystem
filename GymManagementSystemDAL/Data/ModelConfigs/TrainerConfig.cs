@@ -16,6 +16,11 @@ namespace GymManagementSystemDAL.Data.ModelConfigs
         {
             base.Configure(builder);
 
+            builder.Property(T => T.Speciality)
+                   .HasConversion(typeof(string))
+                   .HasColumnType("varchar")
+                   .HasMaxLength(20);
+
             builder.Property(T => T.CreatedAt)
                    .HasColumnName("HireDate")
                    .HasDefaultValueSql("SysDateTime()");

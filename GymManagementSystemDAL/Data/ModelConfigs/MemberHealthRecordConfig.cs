@@ -16,6 +16,11 @@ namespace GymManagementSystemDAL.Data.ModelConfigs
             builder.ToTable("Members")
                     .HasKey(x => x.Id);
 
+            builder.Property(HR => HR.BloodType)
+                   .HasConversion(typeof(string))
+                   .HasColumnType("varchar")
+                   .HasMaxLength(10);
+
 
             builder.HasOne<Member>()
                     .WithOne(M => M.HealthRecord)
