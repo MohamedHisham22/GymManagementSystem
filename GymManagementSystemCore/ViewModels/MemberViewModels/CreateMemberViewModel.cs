@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace GymManagementSystemCore.ViewModels.MemberViewModels
 {
-    internal class CreateMemberViewModel
+    public class CreateMemberViewModel
     {
         [Required(ErrorMessage = "Name Is Required")]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Name Must Be Between 2 And 50 Char")]
-        [RegularExpression(@"^[\w\s]+$", ErrorMessage = "Name Can Contain Only Letters And Spaces")]
+        [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Name Can Contain Only Letters And Spaces")]
         public string Name { get; set; } = null!;
 
         [Required(ErrorMessage = "Email Is Required")]

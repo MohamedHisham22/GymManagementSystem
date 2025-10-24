@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementSystemCore.Services.Classes
 {
-    internal class MemberServices : IMemberServices
+    public class MemberServices : IMemberServices
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -124,7 +124,8 @@ namespace GymManagementSystemCore.Services.Classes
                 if (member == null) return false;
 
                 #region Check If Member Has Active Membership Dont Delete
-                var HasActiveSessions = _unitOfWork.GetRepo<MemberSession>().GetAll(MS => MS.MemberId == id && MS.session.StartDate > DateTime.Now).Any();
+                var sessionIds = _unitOfWork.GetRepo<MemberSession>().GetAll(MS=>MS.MemberId == id).Select(s => s.SessionId);
+                var HasActiveSessions = _unitOfWork.sessionRepo.GetAll(S => sessionIds.Contains(S.Id) && S.StartDate > DateTime.Now).Any();
                 if (HasActiveSessions) return false;
                 #endregion
 

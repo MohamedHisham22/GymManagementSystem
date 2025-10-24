@@ -11,7 +11,7 @@ namespace GymManagementSystemPL.Controllers
         {
             _homeServices = homeServices;
         }
-        public IActionResult Index()
+        public ActionResult Index()
         {
             var data = _homeServices.GetAnalytics(); 
             return View(data); 

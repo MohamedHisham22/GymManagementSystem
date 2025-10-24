@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace GymManagementSystemCore.ViewModels.MemberViewModels
 {
-    internal class MemberDetailsViewModel : MemberViewModel
+    public class MemberDetailsViewModel : MemberViewModel
     {
-        public string PlanName { get; set; } = null!;
+        public string? PlanName { get; set; }
 
         public string DateOfBirth { get; set; } = null!;
 
-        public string MembershipStartDate { get; set; } = null!;
+        public string? MembershipStartDate { get; set; }
 
-        public string MembershipEndDate { get; set; } = null!;
+        public string? MembershipEndDate { get; set; }
 
         public string Address { get; set; } = null!;
     }

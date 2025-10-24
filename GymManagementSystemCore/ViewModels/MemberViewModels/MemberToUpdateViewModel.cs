@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementSystemCore.ViewModels.MemberViewModels
 {
-    internal class MemberToUpdateViewModel
+    public class MemberToUpdateViewModel
     {
         //view only cant be changed
         public string? Photo { get; set; }
@@ -36,7 +36,7 @@ namespace GymManagementSystemCore.ViewModels.MemberViewModels
 
         [Required(ErrorMessage = "City Is Required")]
         [StringLength(30, MinimumLength = 2, ErrorMessage = "City Must Be Between 2 and 30 Chars")]
-        [RegularExpression(@"^[\w\s]+$", ErrorMessage = "City Can Contain Only Letters And Spaces")]
+        [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "City Can Contain Only Letters And Spaces")]
         public string City { get; set; } = null!;
     }
 }
