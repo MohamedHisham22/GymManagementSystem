@@ -19,67 +19,67 @@ namespace GymManagementSystemPL.Controllers
             return View(data);
         }
 
-        public ActionResult MemberDetails(int id) //this action is the first request
+        public ActionResult MemberDetails(int id) 
         {
             if (id <= 0) 
             {
                 TempData["ErrorMessage"] = "Id Must Be A Positive Number";
-                return RedirectToAction(nameof(Index)); //calling this action is a second request (Index Will Still Have This Error Message)
+                return RedirectToAction(nameof(Index)); 
             }
             var memberDetails = _memberServices.GetMemberDetailsById(id);
 
             if (memberDetails is null) 
             {
                 TempData["ErrorMessage"] = "Member Not Found";
-                return RedirectToAction(nameof(Index)); //calling this action is a second request (Index Will Still Have This Error Message)
+                return RedirectToAction(nameof(Index));
             } 
 
             return View(memberDetails);
         }
 
-        public ActionResult HealthRecordDetails(int id) //this action is the first request
+        public ActionResult HealthRecordDetails(int id) 
         {
             if (id <= 0) 
             {
                 TempData["ErrorMessage"] = "Id Must Be A Positive Number";
-                return RedirectToAction(nameof(Index)); //calling this action is a second request (Index Will Still Have This Error Message)
+                return RedirectToAction(nameof(Index));
             } 
             var memberHealthDetails = _memberServices.GetMemberHealthRecordById(id); 
             if (memberHealthDetails is null) 
             {
                 TempData["ErrorMessage"] = "Member Not Found";
-                return RedirectToAction(nameof(Index)); //calling this action is a second request (Index Will Still Have This Error Message)
+                return RedirectToAction(nameof(Index));
             }
             return View(memberHealthDetails);
         }
 
-        public ActionResult Create() //returns create member view
+        public ActionResult Create() 
         {
             return View();
         }
 
-        [HttpPost] // httpGet is the default so we dont have to type it
-        public ActionResult CreateMember(CreateMemberViewModel memberForm) //submit member creation
+        [HttpPost] 
+        public ActionResult CreateMember(CreateMemberViewModel memberForm) 
         {
         
             if (!ModelState.IsValid) 
             {
                 TempData["ErrorMessage"] = "Please Fill All Required Data Correctly"; 
-                return View(nameof(Create) , memberForm); //if user didnt pass view model properties validation reload the same view with his entered data with this error messege
+                return View(nameof(Create) , memberForm); 
             }
             
             bool isCreated = _memberServices.CreateMember(memberForm);
             if (!isCreated) 
             { 
-                TempData["ErrorMessage"] = "Couldnt Create Member"; //if method failed and returned false for any reason
+                TempData["ErrorMessage"] = "Couldnt Create Member"; 
             }
             else 
             {
-                TempData["SuccessMessage"] = "Member Created Successfully"; //if method finished and returned true 
+                TempData["SuccessMessage"] = "Member Created Successfully"; 
             }            
         
         
-            return RedirectToAction(nameof(Index)); //second request
+            return RedirectToAction(nameof(Index)); 
         }
         public ActionResult MemberEdit(int id) 
         {
@@ -99,12 +99,12 @@ namespace GymManagementSystemPL.Controllers
         }
 
         [HttpPost]
-        public ActionResult MemberEdit([FromRoute]int id , MemberToUpdateViewModel memberForm) // the only way the id can get its value is from the route (no query string , no form) //note: both actions need to have the same name so this action can take the id from the route of the other action (if this action had a diffrent name its route would be diffrent so the id would not bind to the other action route id)
+        public ActionResult MemberEdit([FromRoute]int id , MemberToUpdateViewModel memberForm) 
         {
             if (!ModelState.IsValid)
             {
                 TempData["ErrorMessage"] = "Please Update Member Data Correctly";
-                return View( memberForm); //ruturn view with the action name (same edit view)
+                return View( memberForm); 
             }
 
             bool isCreated = _memberServices.UpdateMember(id, memberForm);

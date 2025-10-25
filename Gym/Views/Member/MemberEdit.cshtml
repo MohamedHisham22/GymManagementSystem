@@ -22,7 +22,7 @@
                     <div class="card-body text-center">
                         <h2 class="mb-1 text-primary-color">@Model.Name</h2>
                         <form asp-controller="Member" asp-action="MemberEdit" method="post">
-                            <input hidden readonly asp-for="Name"/> @*so this field 1) is not viewed to the user 2) cant get new value 3) will not be changed to null because it didnt take a new value (its value will stay as it is)*@
+                            <input hidden readonly asp-for="Name"/> 
                             <input hidden readonly asp-for="Photo"/>
                             <div class="mt-4 text-start">
                                 <div class="row g-3">
@@ -83,4 +83,7 @@
     </div>
 </div>
 
-<partial name="_ValidationScripts"></partial>
+@section Scripts
+{
+    <partial name="_ValidationScripts"></partial>
+}

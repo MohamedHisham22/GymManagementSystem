@@ -13,7 +13,7 @@
 <header class="mb-4">
     <h3 class="text-primary-color">Add Member</h3>
 </header>
-<form asp-controller="Member" asp-action="CreateMember" method="post"> @*Used View Model Will Be Sent To This Action On Pressing Submit*@
+<form asp-controller="Member" asp-action="CreateMember" method="post"> 
 
     <!-- Step navigation -->
     <ul class="nav nav-tabs mb-4" id="addMemberTabs" role="tablist">
@@ -42,9 +42,9 @@
             </div>
             <div class="row g-3">
                 <div class="col-12 col-md-6">
-                    <label asp-for="Name" class="form-label"></label> @*Assigning Field Name Into "Name"*@
-                    <input asp-for="Name" type="text" class="form-control" /> @*Assigning Value Of Field "Name"" Into Model Property "Name"*@
-                    <span asp-validation-for="Name" class="text-danger"></span> @*Showing Validation Error Created Inside Model *@
+                    <label asp-for="Name" class="form-label"></label> 
+                    <input asp-for="Name" type="text" class="form-control" /> 
+                    <span asp-validation-for="Name" class="text-danger"></span> 
                 </div>
 
                 <div class="col-12 col-md-6">
@@ -66,7 +66,7 @@
 
                 <div class="col-12 col-md-6">
                     <label asp-for="Gender" class="form-label"></label>
-                    <select asp-for="Gender" class="form-select" asp-items="Html.GetEnumSelectList<Gender>()"> @*showing only options of lables inside enum*@
+                    <select asp-for="Gender" class="form-select" asp-items="Html.GetEnumSelectList<Gender>()"> 
                         <option value=""> --- Select Your Gender --- </option>
                     </select> 
                     <span asp-validation-for="Gender" class="text-danger"></span>
@@ -140,5 +140,8 @@
 
 </form>
 
-<partial name="_ValidationScripts"></partial>
+@section Scripts
+{
+    <partial name="_ValidationScripts"></partial>
+}
 

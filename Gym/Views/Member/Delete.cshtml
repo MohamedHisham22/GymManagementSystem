@@ -9,7 +9,7 @@
                 </div>
 
                 <form asp-controller="Member" asp-action="DeleteConfirmed" method="post" class="mt-4">
-                    <input hidden readonly name="id" value="@ViewBag.MemberId"/> @*now form sends id to action parameter "id" (non model form way) and this view holds the id value beacuse its still in the same request when the view bag created*@
+                    <input hidden readonly name="id" value="@ViewBag.MemberId"/> 
                     <div class="buttons d-flex justify-content-between gap-3">
                         <a asp-controller="Member" asp-action="Index" class="btn-outline flex-fill">NO</a>
                         <button type="submit" class="btn-fill flex-fill">Yes</button>
