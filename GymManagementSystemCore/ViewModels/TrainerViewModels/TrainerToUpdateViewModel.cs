@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementSystemCore.ViewModels.TrainerViewModels
 {
-    internal class TrainerToUpdateViewModel
+    public class TrainerToUpdateViewModel
     {
         //View Only Cant Be Changed
         public string Name { get; set; } = null!;

@@ -103,7 +103,7 @@ namespace GymManagementSystemPL.Controllers
         {
             if (!ModelState.IsValid)
             {
-                TempData["ErrorMessage"] = "Please Update Your Data Correctly";
+                TempData["ErrorMessage"] = "Please Update Member Data Correctly";
                 return View( memberForm); //ruturn view with the action name (same edit view)
             }
 

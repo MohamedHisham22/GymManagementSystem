@@ -21,7 +21,9 @@ namespace GymManagementSystemCore.MappingProfiles
                     Street = src.Street,
                     City = src.City
                 }));
-            CreateMap<Trainer, TrainerViewModel>();
+            CreateMap<Trainer, TrainerViewModel>()
+                .ForMember(TV => TV.Address, options => options.MapFrom(T => $"{T.Address.BuildingNumber}, {T.Address.Street}, {T.Address.City}"));
+
             CreateMap<Trainer, TrainerToUpdateViewModel>()
                 .ForMember(dist => dist.Street, opt => opt.MapFrom(src => src.Address.Street))
                 .ForMember(dist => dist.City, opt => opt.MapFrom(src => src.Address.City))
