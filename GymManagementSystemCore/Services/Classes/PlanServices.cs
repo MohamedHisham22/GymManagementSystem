@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementSystemCore.Services.Classes
 {
-    internal class PlanServices : IPlanServices
+    public class PlanServices : IPlanServices
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;

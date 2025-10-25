@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementSystemCore.ViewModels.PlanViewModels
 {
-    internal class PlanToUpdateViewModel
+    public class PlanToUpdateViewModel
     {
         [Required (ErrorMessage ="Plan Name Is Required")]
         [StringLength(50 , ErrorMessage = "Name Max Length Is 50 Characters")]

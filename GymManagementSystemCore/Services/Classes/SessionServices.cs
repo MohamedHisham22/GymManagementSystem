@@ -12,7 +12,7 @@ using static System.Collections.Specialized.BitVector32;
 
 namespace GymManagementSystemCore.Services.Classes
 {
-    internal class SessionServices : ISessionServices
+    public class SessionServices : ISessionServices
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -103,6 +103,32 @@ namespace GymManagementSystemCore.Services.Classes
             }
         }
 
+
+        public IEnumerable<SessionCategoriesSelect> GetSessionCategories()
+        {
+            var categories = _unitOfWork.GetRepo<Category>().GetAll();
+            if (categories is null || !categories.Any()) return [];
+            var categoriesView = categories.Select(S => new SessionCategoriesSelect()
+            {
+                id = S.Id,
+                Name = S.CategoryName,
+            });
+            return categoriesView;
+        }
+
+        public IEnumerable<SessionTrainersSelect> GetSessionTrainers()
+        {
+            var trainers = _unitOfWork.GetRepo<Trainer>().GetAll();
+            if (trainers is null || !trainers.Any()) return [];
+            var trainersView = trainers.Select(S => new SessionTrainersSelect()
+            {
+                Id = S.Id,
+                Name = S.Name,
+            });
+            return trainersView;
+        }
+
+
         #region Helpers
         private bool IsTrainerExists(int TrainerId)
         {
@@ -117,7 +143,7 @@ namespace GymManagementSystemCore.Services.Classes
 
         private bool IsDateTimeValid(DateTime StartDate, DateTime EndDate)
         {
-            return StartDate < EndDate;
+            return StartDate < EndDate && DateTime.Now < StartDate;
         }
 
         private bool isSessionAvailableToUpdateOrDelete(Session session , bool deleteSession = false) 

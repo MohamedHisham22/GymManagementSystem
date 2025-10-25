@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementSystemCore.Services.Interfaces
 {
-    internal interface ISessionServices
+    public interface ISessionServices
     {
         public IEnumerable<SessionViewModel> GetAllSessions();
 
@@ -21,6 +21,9 @@ namespace GymManagementSystemCore.Services.Interfaces
 
         public bool RemoveSession(int sessionId);
 
+        public IEnumerable<SessionCategoriesSelect> GetSessionCategories();
+
+        public IEnumerable<SessionTrainersSelect> GetSessionTrainers();
 
     }
 }
