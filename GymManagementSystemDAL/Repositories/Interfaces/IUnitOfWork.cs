@@ -13,6 +13,8 @@ namespace GymManagementSystemDAL.Repositories.Interfaces
     {
         public ISessionRepo sessionRepo { get; }
         public IHealthRecordRepo healthRecordRepo { get; } 
+
+        public IMembershipRepo membershipRepo { get; }
         public IGenericRepo<T> GetRepo<T>() where T : Base, new();
 
         public int saveChanges();

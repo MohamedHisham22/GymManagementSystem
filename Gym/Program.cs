@@ -25,12 +25,14 @@ namespace Gym
             builder.Services.AddAutoMapper(X => X.AddMaps(typeof(MemberMappingProfile).Assembly));
             builder.Services.AddScoped<IHealthRecordRepo, HealthRecordRepo>();
             builder.Services.AddScoped<ISessionRepo, SessionRepo>();
+            builder.Services.AddScoped<IMembershipRepo, MembershipRepo>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IHomeServices , HomeServices>();
             builder.Services.AddScoped<IMemberServices, MemberServices>();
             builder.Services.AddScoped<ITrainerServices, TrainerServices>();
             builder.Services.AddScoped<IPlanServices, PlanServices>();
             builder.Services.AddScoped<ISessionServices, SessionServices>();
+            builder.Services.AddScoped<IMemberShipServices, MemberShipServices>();
 
 
 

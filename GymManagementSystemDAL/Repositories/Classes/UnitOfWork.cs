@@ -17,13 +17,14 @@ namespace GymManagementSystemDAL.Repositories.Classes
 
         public IHealthRecordRepo healthRecordRepo { get; }
         public ISessionRepo sessionRepo { get; }
+        public IMembershipRepo membershipRepo { get; }
 
-
-        public UnitOfWork(GymDbContext dbContext , IHealthRecordRepo HealthRecordRepo , ISessionRepo SessionRepo )
+        public UnitOfWork(GymDbContext dbContext , IHealthRecordRepo HealthRecordRepo , ISessionRepo SessionRepo , IMembershipRepo MembershipRepo)
         {
             _dbContext = dbContext; 
             healthRecordRepo = HealthRecordRepo;
             sessionRepo = SessionRepo;
+            membershipRepo = MembershipRepo;
         }
 
         public IGenericRepo<T> GetRepo<T>() where T : Base, new()
