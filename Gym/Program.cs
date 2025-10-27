@@ -26,6 +26,7 @@ namespace Gym
             builder.Services.AddScoped<IHealthRecordRepo, HealthRecordRepo>();
             builder.Services.AddScoped<ISessionRepo, SessionRepo>();
             builder.Services.AddScoped<IMembershipRepo, MembershipRepo>();
+            builder.Services.AddScoped<IMemberSessionRepo, MemberSessionRepo>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IHomeServices , HomeServices>();
             builder.Services.AddScoped<IMemberServices, MemberServices>();
@@ -33,6 +34,8 @@ namespace Gym
             builder.Services.AddScoped<IPlanServices, PlanServices>();
             builder.Services.AddScoped<ISessionServices, SessionServices>();
             builder.Services.AddScoped<IMemberShipServices, MemberShipServices>();
+            builder.Services.AddScoped<IMemberSessionsServices, MemberSessionsServices>();
+
 
 
 

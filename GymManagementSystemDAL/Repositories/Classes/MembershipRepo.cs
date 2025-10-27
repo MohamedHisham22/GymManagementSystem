@@ -33,6 +33,6 @@ namespace GymManagementSystemDAL.Repositories.Classes
         public MemberPlan? GetByIdWithComposite(int key1, int key2, DateTime key3) => _dbContext.MemberShips.FirstOrDefault(m =>
         m.MemberId == key1 &&
         m.PlanId == key2 &&
-        m.CreatedAt.Date == key3.Date); //compare only date , time not included beacuse milliseconds are compared and milliseconds might differ from code and database 
+        m.CreatedAt.Date == key3.Date);
     }
 }

@@ -20,12 +20,24 @@ namespace GymManagementSystemDAL.Repositories.Classes
             _dbContext = dbContext;
         }
 
-        public IEnumerable<Session> GetAllSessionsWithLoadedCategoriesAndTrainers()
+        public IEnumerable<Session> GetAllSessionsWithLoadedCategoriesAndTrainers(Func<Session, bool>? predicate = null)
         {
-            return _dbContext.Set<Session>().AsNoTracking()
-                                            .Include(S=>S.Trainer)
-                                            .Include(S=>S.Category)
-                                            .ToList();
+            if (predicate==null) 
+            {
+                return _dbContext.Set<Session>().AsNoTracking()
+                                                .Include(S=>S.Trainer)
+                                                .Include(S=>S.Category)
+                                                .ToList();
+
+            }
+            else 
+            {
+                return _dbContext.Set<Session>().AsNoTracking()
+                                                .Include(S => S.Trainer)
+                                                .Include(S => S.Category)
+                                                .Where(predicate)
+                                                .ToList();
+            }
         }
         
         
