@@ -1,7 +1,9 @@
 ﻿using GymManagementSystemDAL.Models.Enums;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -48,10 +50,13 @@ namespace GymManagementSystemCore.ViewModels.MemberViewModels
         [RegularExpression(@"^[\w\s]+$", ErrorMessage = "City Can Contain Only Letters And Spaces")]
         public string City { get; set; } = null!;
 
-        #region Health Record Properties Way01 (if its properties might be needed somewhere else)
         [Required(ErrorMessage = "Health Record Is Required")]
         public MemberHealthRecordViewModel HealthRecord { get; set; } = null!;
-        #endregion
+        
+        [Required(ErrorMessage = "Photo Is Required")]
+        [Display(Name = "Profile Photo")]
+
+        public IFormFile Photo { get; set; } = null!;
 
     }
 

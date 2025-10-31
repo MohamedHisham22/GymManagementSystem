@@ -10,7 +10,7 @@ namespace GymManagementSystemDAL.Models
     public class Member : GymUser
     {
         #region Columns
-        public string? Photo {  get; set; }
+        public string Photo { get; set; } = null!;
         #endregion
 
         #region Nav Propeeties (Relations)

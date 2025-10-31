@@ -155,9 +155,11 @@ namespace GymManagementSystemCore.Services.Classes
             bool doesSessionHaveActiveBooking = _unitOfWork.sessionRepo.GetBookedSlotsCount(session.Id) > 0;
             if (!deleteSession && isSessionCompleted) return false;
             if (!deleteSession && isSessionStarted) return false;
+            if (!deleteSession && doesSessionHaveActiveBooking) return false;
             if (deleteSession && isSessionUpcoming) return false;
             if (deleteSession && isSessionStartedAndOngoing) return false;
-            if (doesSessionHaveActiveBooking) return false;
+            if (deleteSession && doesSessionHaveActiveBooking && !isSessionCompleted) return false;
+
             return true;
         }
 

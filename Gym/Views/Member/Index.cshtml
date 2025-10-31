@@ -48,11 +48,11 @@
                                      <span class="avatar">
                                             @if (string.IsNullOrEmpty(member.Photo))
                                             {
-                                                <img src="~/images/User.jpg" alt="Default Avatar" class="rounded-circle"
+                                                <img src="~/images/Profile_avatar_placeholder_large.png" alt="Default Avatar" class="rounded-circle"
                                                 style="width: 40px; height: 40px;" />
                                             }else
                                             {
-                                                <img src="~/images/@member.Photo" alt="Default Avatar" class="rounded-circle"
+                                                <img src="~/uploads/memberProfile/@member.Photo" alt="Default Avatar" class="rounded-circle"
                                                      style="width: 40px; height: 40px;" />
                                             }
                                         </span>

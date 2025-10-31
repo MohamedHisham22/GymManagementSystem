@@ -1,5 +1,6 @@
 using AutoMapper;
 using GymManagementSystemCore.MappingProfiles;
+using GymManagementSystemCore.Services.AttachmentService;
 using GymManagementSystemCore.Services.Classes;
 using GymManagementSystemCore.Services.Interfaces;
 using GymManagementSystemDAL.Data.DataSeed;
@@ -35,6 +36,7 @@ namespace Gym
             builder.Services.AddScoped<ISessionServices, SessionServices>();
             builder.Services.AddScoped<IMemberShipServices, MemberShipServices>();
             builder.Services.AddScoped<IMemberSessionsServices, MemberSessionsServices>();
+            builder.Services.AddScoped<IAttachmentService, AttachmentService>(); 
 
 
 

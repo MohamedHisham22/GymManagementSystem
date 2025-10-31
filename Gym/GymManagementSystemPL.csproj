@@ -18,4 +18,8 @@
     <ProjectReference Include="..\GymManagementSystemCore\GymManagementSystemCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\uploads\memberProfile\" />
+  </ItemGroup>
+
 </Project>

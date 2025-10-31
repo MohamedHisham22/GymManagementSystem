@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GymManagementSystemCore.Services.AttachmentService;
 using GymManagementSystemCore.Services.Interfaces;
 using GymManagementSystemCore.ViewModels.MemberViewModels;
 using GymManagementSystemDAL.Data.DbContexts;
@@ -18,11 +19,13 @@ namespace GymManagementSystemCore.Services.Classes
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IAttachmentService _attachmentService;
 
-        public MemberServices(IUnitOfWork unitOfWork , IMapper mapper)
+        public MemberServices(IUnitOfWork unitOfWork , IMapper mapper , IAttachmentService attachmentService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _attachmentService = attachmentService;
         }
 
 
@@ -43,11 +46,22 @@ namespace GymManagementSystemCore.Services.Classes
                 if (IsEmailExists(createdMemberView.Email) || IsPhoneExists(createdMemberView.Phone)) return false;
                 #endregion
 
-                var member = _mapper.Map<CreateMemberViewModel, Member>(createdMemberView);
-                _unitOfWork.GetRepo<Member>().Add(member);
-                return _unitOfWork.saveChanges() > 0;
+                var photoName = _attachmentService.UploadMemberPhoto("memberProfile" , createdMemberView.Photo);
+                if(string.IsNullOrEmpty(photoName)) return false;
 
-            }catch
+                var member = _mapper.Map<CreateMemberViewModel, Member>(createdMemberView);
+                member.Photo = photoName;
+                _unitOfWork.GetRepo<Member>().Add(member);
+                bool isCreated = _unitOfWork.saveChanges() > 0;
+                if (!isCreated) 
+                {
+                    _attachmentService.DeleteMemberPhoto("memberProfile", photoName);
+                    return false;
+                }
+                return true;
+
+            }
+            catch
             {
                 return false;
             }
@@ -130,7 +144,12 @@ namespace GymManagementSystemCore.Services.Classes
                 #endregion
 
                 memberRepo.Delete(member);
-                return _unitOfWork.saveChanges() > 0;
+                bool isDeleted =  _unitOfWork.saveChanges() > 0;
+                if(!isDeleted) return false;
+                bool isPhotoDeleted = _attachmentService.DeleteMemberPhoto("memberProfile", member.Photo);
+                if (!isPhotoDeleted) return false;
+                return true;
+                
             }
             catch 
             {
