@@ -37,8 +37,8 @@ namespace Gym
             }).AddEntityFrameworkStores<GymAuthDbContext>();
             builder.Services.ConfigureApplicationCookie(options =>
             {
-                options.LoginPath = "/Account/Login"; //Used when a user is not authenticated(not logged in) and tries to access a page need authentication(e.g., a page decorated with [Authorize]).
-                options.AccessDeniedPath = "/Account/AccessDenied"; //Used when a user is authenticated (logged in) but tried to access a paged that needs a specific role and he is not authorized (doesn’t have the required role or policy which requires [Authorize(Roles="RoleName")]).
+                options.LoginPath = "/Account/Login"; 
+                options.AccessDeniedPath = "/Account/AccessDenied"; 
             });
             builder.Services.AddAutoMapper(X => X.AddMaps(typeof(MemberMappingProfile).Assembly));
             builder.Services.AddScoped<IHealthRecordRepo, HealthRecordRepo>();

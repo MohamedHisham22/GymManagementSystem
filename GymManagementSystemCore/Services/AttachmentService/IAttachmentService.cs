@@ -9,7 +9,7 @@ namespace GymManagementSystemCore.Services.AttachmentService
 {
     public interface IAttachmentService
     {
-        string? UploadMemberPhoto(string folderName , IFormFile file); //if the directory will be the same for all kind of uploads you can remove folderName parameter and set them directly in the implementation class because they will be static and will never change
+        string? UploadMemberPhoto(string folderName , IFormFile file); 
 
         bool DeleteMemberPhoto(string folderName , string fileName);
     }

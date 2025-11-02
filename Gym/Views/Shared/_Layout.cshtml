@@ -37,7 +37,7 @@
                         <li class="nav-item">
                             <a class="nav-link @(currentController=="Home"?"active":"") px-3 py-2 mx-2 fw-bolder fs-5" aria-current="page" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @if(User.IsInRole("SuperAdmin")) @*All User Data Is Accessed From Cookie*@
+                        @if(User.IsInRole("SuperAdmin")) 
                         {
                             <li class="nav-item">
                                 <a class="nav-link @(currentController == "Member" ? "active" : "") px-3 py-2 mx-2 fw-bolder fs-5" aria-current="page" asp-controller="Member" asp-action="Index">Members</a>

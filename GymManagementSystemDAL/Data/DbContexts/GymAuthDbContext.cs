@@ -20,7 +20,7 @@ namespace GymManagementSystemDAL.Data.DbContexts
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<ApplicationUser>(AU => //the only added properties every thing else is configured by default in IdentityDbContext
+            builder.Entity<ApplicationUser>(AU => 
             {
                 AU.Property(AU => AU.FirstName)
                   .HasColumnType("varchar")

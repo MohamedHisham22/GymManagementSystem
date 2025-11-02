@@ -31,7 +31,7 @@ namespace GymManagementSystemPL.Controllers
                 ModelState.AddModelError("Error", "User Not Found");
                 return View(loginForm);
             }
-            var result = _signInManager.PasswordSignInAsync(user , loginForm.Password , loginForm.RememberMe , false).Result; //rememberMe is so save his cookie in browser when he closes it if no then the cookie will be saved until the browser is closed then the cookie will be ddeleted , user not authenticated anymore
+            var result = _signInManager.PasswordSignInAsync(user , loginForm.Password , loginForm.RememberMe , false).Result;
             if (result.Succeeded) return RedirectToAction("Index", "Home");
             if (result.IsNotAllowed)
                 ModelState.AddModelError("Error", "User Not Alowed");
@@ -43,7 +43,7 @@ namespace GymManagementSystemPL.Controllers
         [HttpPost]
         public ActionResult Logout()
         {
-            _signInManager.SignOutAsync().GetAwaiter().GetResult(); //remove cookie from browser , user is not authenticated anymore and will be redirected to login on any request 
+            _signInManager.SignOutAsync().GetAwaiter().GetResult(); 
             return RedirectToAction("Login");
         }
 
