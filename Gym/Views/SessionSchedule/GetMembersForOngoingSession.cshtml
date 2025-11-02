@@ -1,4 +1,7 @@
-﻿@model IEnumerable<OngoingSessionViewModel>
+﻿@{
+    ViewData["Title"] = "Session Members";
+}
+@model IEnumerable<OngoingSessionViewModel>
 
 @if (TempData["Success"] is not null)
 {

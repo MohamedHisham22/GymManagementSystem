@@ -3,11 +3,13 @@ using GymManagementSystemCore.Services.Interfaces;
 using GymManagementSystemCore.ViewModels.MemberSessionViewModels;
 using GymManagementSystemCore.ViewModels.MembershipViewModel;
 using GymManagementSystemDAL.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GymManagementSystemPL.Controllers
 {
+    [Authorize]
     public class SessionScheduleController : Controller
     {
         private readonly IMemberSessionsServices _memberSessionsServices;

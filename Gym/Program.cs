@@ -1,12 +1,16 @@
 using AutoMapper;
 using GymManagementSystemCore.MappingProfiles;
 using GymManagementSystemCore.Services.AttachmentService;
+using GymManagementSystemCore.Services.AuthService;
 using GymManagementSystemCore.Services.Classes;
 using GymManagementSystemCore.Services.Interfaces;
 using GymManagementSystemDAL.Data.DataSeed;
 using GymManagementSystemDAL.Data.DbContexts;
+using GymManagementSystemDAL.Models.AuthModels;
 using GymManagementSystemDAL.Repositories.Classes;
 using GymManagementSystemDAL.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gym
@@ -23,6 +27,19 @@ namespace Gym
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+            builder.Services.AddDbContext<GymAuthDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection"));
+            });
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(config =>
+            {
+                config.User.RequireUniqueEmail = true;
+            }).AddEntityFrameworkStores<GymAuthDbContext>();
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/Login"; //Used when a user is not authenticated(not logged in) and tries to access a page need authentication(e.g., a page decorated with [Authorize]).
+                options.AccessDeniedPath = "/Account/AccessDenied"; //Used when a user is authenticated (logged in) but tried to access a paged that needs a specific role and he is not authorized (doesn’t have the required role or policy which requires [Authorize(Roles="RoleName")]).
+            });
             builder.Services.AddAutoMapper(X => X.AddMaps(typeof(MemberMappingProfile).Assembly));
             builder.Services.AddScoped<IHealthRecordRepo, HealthRecordRepo>();
             builder.Services.AddScoped<ISessionRepo, SessionRepo>();
@@ -36,7 +53,8 @@ namespace Gym
             builder.Services.AddScoped<ISessionServices, SessionServices>();
             builder.Services.AddScoped<IMemberShipServices, MemberShipServices>();
             builder.Services.AddScoped<IMemberSessionsServices, MemberSessionsServices>();
-            builder.Services.AddScoped<IAttachmentService, AttachmentService>(); 
+            builder.Services.AddScoped<IAttachmentService, AttachmentService>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
 
 
 
@@ -44,14 +62,31 @@ namespace Gym
             var app = builder.Build();
 
 
+
+
+
             //Data Seeding
-            using var dbContext = app.Services.CreateScope().ServiceProvider.GetRequiredService<GymDbContext>();
+            using var scope = app.Services.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<GymDbContext>();
             var pendingMigrations = dbContext.Database.GetPendingMigrations();
             if(pendingMigrations?.Any() ?? false)  
             {
                 dbContext.Database.Migrate();
             }
             GymDbContextDataSeeder.SeedData(dbContext);
+
+            var authDbContext = scope.ServiceProvider.GetRequiredService<GymAuthDbContext>();
+            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var pendingAuthMigrations = authDbContext.Database.GetPendingMigrations();
+            if (pendingAuthMigrations?.Any() ?? false)
+            {
+                authDbContext.Database.Migrate();
+            }
+            GymAuthDbContextDataSeeder.SeedData(roleManager, userManager);
+
+
+
 
 
             // Configure the HTTP request pipeline.
@@ -65,6 +100,7 @@ namespace Gym
             app.UseHttpsRedirection();
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapStaticAssets();

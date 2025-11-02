@@ -1,4 +1,7 @@
-﻿@model IEnumerable<UpcomingSessionViewModel>
+﻿@{
+    ViewData["Title"] = "Session Members";
+}
+@model IEnumerable<UpcomingSessionViewModel>
 
 @if(TempData["Success"] is not null)
 {

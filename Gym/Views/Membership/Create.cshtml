@@ -1,4 +1,7 @@
-﻿@if (TempData["Error"] is not null)
+﻿@{
+    ViewData["Title"] = "Create Membership";
+}
+@if (TempData["Error"] is not null)
 {
     <div id="Alert" class="alert alert-danger alert-dismissible fade show">
         <i class="bi bi-exclamation-triangle-fill me-2"></i>

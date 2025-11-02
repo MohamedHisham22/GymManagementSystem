@@ -1,4 +1,7 @@
-﻿@model CreateMemberInUpcomingViewModel
+﻿@{
+    ViewData["Title"] = "Create Booking";
+}
+@model CreateMemberInUpcomingViewModel
 @if (TempData["Error"] is not null)
 {
     <div id="Alert" class="alert alert-danger alert-dismissible fade show">

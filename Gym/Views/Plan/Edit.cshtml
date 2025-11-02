@@ -1,4 +1,7 @@
-﻿@model PlanToUpdateViewModel 
+﻿@{
+    ViewData["Title"] = "Edit Plan";
+}
+@model PlanToUpdateViewModel 
 @if (TempData["ErrorMessage"] is not null)
 {
     <div id="Alert" class="alert alert-danger alert-dismissible fade show">
